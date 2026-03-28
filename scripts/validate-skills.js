@@ -8,7 +8,7 @@ import { fileURLToPath } from 'url';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const root = join(__dirname, '..');
-const skillsDir = join(root, '.agents', 'skills');
+const skillsDir = join(root, 'skills');
 const schemaPath = join(__dirname, 'skill-schema.json');
 
 const schema = JSON.parse(readFileSync(schemaPath, 'utf8'));

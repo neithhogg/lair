@@ -16,7 +16,6 @@ npx skills add neithhogg/lair
 |---|---|
 | `/project-init` | Multi-phase conversation to bootstrap a new project — requirement discovery, scope lock, tech stack decision, file scaffold, skill installation |
 | `/project-sync` | Update PROJECT.md when scope changes, append a record to JOURNAL.md |
-| `/skill-creator` | Build, test, and benchmark a new skill with evals and description optimisation |
 
 **Rules that silently govern AI behaviour**
 
@@ -49,14 +48,11 @@ npx skills add neithhogg/lair
 `project-sync` keeps `PROJECT.md` current and `JOURNAL.md` append-only —
 together they give any AI agent full project context across sessions.
 
-`skill-creator` builds new skills with full eval lifecycle — intent capture, test
-cases, benchmarking, grading, and description optimisation for accurate triggering.
-
 ## Iterating lair itself
 
 ```bash
-cd /Users/albertmin/Documents/GitHub/lair
-# Make changes
+git clone https://github.com/neithhogg/lair && cd lair
+# Make changes to skills/ or scripts/
 git add . && git commit -m "skill: add [name]"
 git push
 # Other projects update with:
