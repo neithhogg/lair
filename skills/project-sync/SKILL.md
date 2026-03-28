@@ -1,7 +1,7 @@
 ---
 name: project-sync
 description: >
-  Keeps PROJECT.md, JOURNAL.md, and AI context files (CLAUDE.md, AGENT.md, AGENTS.md)
+  Keeps PROJECT.md, JOURNAL.md, README.md, and AI context files (CLAUDE.md, AGENT.md, AGENTS.md)
   accurate and consistent with each other. Automatically reads recent git history and file
   changes to determine what's been completed and what's planned. JOURNAL.md is a lightweight
   checklist — [x] for done, [ ] for planned. Also performs a consistency pass across all
@@ -35,6 +35,7 @@ git status --short
 Read all existing docs:
 - `PROJECT.md`
 - `JOURNAL.md`
+- `README.md` (if present)
 - `CLAUDE.md` (if present)
 - `AGENT.md` / `AGENTS.md` (if present)
 
@@ -46,7 +47,8 @@ From git history and file state, determine:
 
 **Consistency check:** Compare all docs against each other. Flag anything that conflicts or
 is stale — e.g., CLAUDE.md describes a skill behavior that no longer matches SKILL.md,
-PROJECT.md lists a tech choice that was changed, a doc references a file that was removed.
+PROJECT.md lists a tech choice that was changed, README.md describes features or rules that
+were removed, a doc references a file that was removed.
 
 **Significance check:** Only proceed if there's something meaningful to update. If
 everything looks current and consistent, say so and stop.
@@ -65,6 +67,9 @@ JOURNAL.md:
 
 PROJECT.md:
   CHANGING: [specific field] — [old] → [new]
+
+README.md:
+  CHANGING: [section] — [what's stale and what replaces it]
 
 CLAUDE.md:
   CHANGING: [section] — [what's stale and what replaces it]
@@ -108,8 +113,11 @@ Rules:
 ### PROJECT.md
 Apply only what changed. Update `Last Updated` to today.
 
-### CLAUDE.md (if present)
+### README.md (if present)
 Fix any stale sections identified in Step 1. Don't rewrite sections that are still accurate.
+
+### CLAUDE.md (if present)
+Same — fix stale, preserve accurate.
 
 ### AGENT.md / AGENTS.md (if present)
 Same — fix stale, preserve accurate.

@@ -15,16 +15,7 @@ npx skills add neithhogg/lair
 | Command | What it does |
 |---|---|
 | `/project-init` | Multi-phase conversation to bootstrap a new project — requirement discovery, scope lock, tech stack decision, file scaffold, skill installation |
-| `/project-sync` | Update PROJECT.md when scope changes, append a record to JOURNAL.md |
-
-**Rules that silently govern AI behaviour**
-
-| Rule | Effect |
-|---|---|
-| `rule-file-management` | All AI-generated temp files go in `tmp/` — flat, no nesting |
-| `rule-gitignore` | Standard .gitignore for TS / Go / Rust + IDEs + OS files |
-| `rule-coding-conventions` | Naming and structure conventions for TypeScript, Go, and Rust |
-| `rule-ai-collaboration` | Confirm before large changes, no silent deletes, scope discipline |
+| `/project-sync` | Keep all project docs accurate and consistent; JOURNAL.md is a checklist |
 
 ## Quick start
 
