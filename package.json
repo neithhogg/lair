@@ -1,0 +1,14 @@
+{
+  "name": "lair",
+  "version": "1.0.0",
+  "description": "neithhogg's AI project foundation — install once, carry everywhere.",
+  "type": "module",
+  "scripts": {
+    "setup": "node scripts/setup.js",
+    "validate": "node scripts/validate-skills.js"
+  },
+  "engines": {
+    "node": ">=22"
+  },
+  "license": "MIT"
+}

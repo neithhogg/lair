@@ -48,6 +48,19 @@ npx skills add neithhogg/lair
 `project-sync` keeps `PROJECT.md` current and `JOURNAL.md` append-only —
 together they give any AI agent full project context across sessions.
 
+## Contributing / Setup
+
+After cloning:
+
+```bash
+npm run setup
+```
+
+Installs all of lair's skills plus the team's recommended third-party skills
+into every AI tool you have installed (Claude Code, Cursor, Codex, Gemini CLI, etc.).
+
+To add a recommended skill for the team, edit `scripts/skills.recommended.json` and open a PR.
+
 ## Iterating lair itself
 
 ```bash

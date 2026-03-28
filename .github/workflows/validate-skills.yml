@@ -3,9 +3,10 @@ name: Validate skills
 on:
   pull_request:
     paths:
-      - '.agents/skills/**/SKILL.md'
+      - 'skills/**/SKILL.md'
       - 'scripts/skill-schema.json'
       - 'scripts/validate-skills.js'
+      - 'package.json'
 
 jobs:
   validate:
@@ -18,4 +19,4 @@ jobs:
           node-version-file: '.nvmrc'
 
       - name: Validate skill frontmatter
-        run: node scripts/validate-skills.js
+        run: npm run validate

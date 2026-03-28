@@ -1,0 +1,8 @@
+{
+  "description": "Third-party skills installed alongside lair. Edit this file to add/remove team recommendations.",
+  "skills": [
+    { "source": "github/awesome-copilot", "skill": "git-commit" },
+    { "source": "github/awesome-copilot", "skill": "gh-cli" },
+    { "source": "anthropics/skills", "skill": "skill-creator" }
+  ]
+}
