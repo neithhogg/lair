@@ -21,7 +21,7 @@ function run(cmd) {
 // Install lair's own skills from the local repo.
 // --full-depth required: skills live in skills/ subdirectory, not repo root.
 console.log('Installing lair skills...');
-run('npx skills add . --full-depth --all -y');
+run('npx skills add .');
 
 // Install each recommended third-party skill.
 // Failures are warnings only — network issues shouldn't block local dev.
