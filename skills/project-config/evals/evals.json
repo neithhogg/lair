@@ -1,0 +1,61 @@
+{
+  "skill_name": "project-config",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Set up my AI context file.",
+      "expected_output": "Claude runs detection logic silently (env vars, then config dirs), reports what was found with confidence level, asks user to confirm the target agent, inventories existing context files, scans the codebase using package.json and README.md, generates the appropriate config file with commands sourced from actual files, then asks about AGENTS.md cross-agent support in Phase 4.",
+      "files": [
+        "evals/fixtures/node-project/package.json",
+        "evals/fixtures/node-project/README.md"
+      ],
+      "expectations": [
+        "Claude runs agent detection before generating any file",
+        "Claude reports the detected agent and its confidence level",
+        "Claude waits for user confirmation of the target agent before Phase 2",
+        "Claude checks for existing context files in Phase 2 and reports what was found",
+        "Claude scans package.json to populate build/test/lint/start commands",
+        "Generated file contains Commands section with commands sourced from package.json fixtures (tsc, vitest run, eslint src/, node dist/index.js), not fabricated",
+        "Generated file includes a Last Updated date",
+        "Claude asks about cross-agent AGENTS.md in Phase 4",
+        "Claude does not write any file before Phase 3"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "I'm running Cursor. Generate .cursorrules for this Go project.",
+      "expected_output": "Claude accepts the user's explicit agent declaration (Cursor) without contradicting it, skips to Phase 2 inventory, scans go.mod and README.md, generates a plain-text .cursorrules file with commands sourced from the Go fixture files, then offers AGENTS.md in Phase 4.",
+      "files": [
+        "evals/fixtures/go-project/go.mod",
+        "evals/fixtures/go-project/README.md"
+      ],
+      "expectations": [
+        "Claude does not contradict the user's explicit Cursor declaration",
+        "Generated file is .cursorrules (plain text, not CLAUDE.md or AGENTS.md)",
+        ".cursorrules contains no markdown headers (no # or ## lines)",
+        ".cursorrules contains build and test commands sourced from the go.mod/README fixtures (go build ./..., go test ./...)",
+        "Claude offers AGENTS.md cross-agent standard in Phase 4",
+        "Claude does not generate CLAUDE.md or AGENTS.md before Phase 4 confirmation",
+        "Generated file includes a Last Updated date line"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "CLAUDE.md already exists but it's outdated. Regenerate it.",
+      "expected_output": "Claude detects CLAUDE.md in Phase 2 inventory, asks whether to overwrite, append, or skip before writing anything, proceeds with overwrite after confirmation, rescans the codebase, writes a fresh CLAUDE.md with today's Last Updated date.",
+      "files": [
+        "evals/fixtures/node-project/package.json",
+        "evals/fixtures/node-project/README.md"
+      ],
+      "expectations": [
+        "Claude runs detection Phase 1 before anything else",
+        "Claude detects existing CLAUDE.md during Phase 2 inventory and reports it",
+        "Claude explicitly asks whether to overwrite, append, or skip before writing",
+        "Claude does not overwrite without receiving user confirmation",
+        "New CLAUDE.md is written only after user confirms overwrite",
+        "New CLAUDE.md has Last Updated set to today's date",
+        "Commands section in new CLAUDE.md reflects scripts found in package.json fixture (not fabricated)"
+      ]
+    }
+  ]
+}
