@@ -1,0 +1,28 @@
+# IDEs
+.idea/
+.vscode/
+*.iml
+.cursor/
+
+# OS
+.DS_Store
+Thumbs.db
+._*
+
+# Logs and temp
+*.log
+tmp/
+.tmp/
+
+# Env
+.env
+.env.local
+.env.*.local
+*.env
+
+# Node (skills.sh CLI)
+node_modules/
+.npm/
+
+# GitHub Actions cache
+.act/
