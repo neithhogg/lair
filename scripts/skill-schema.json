@@ -1,0 +1,39 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "SKILL.md frontmatter",
+  "description": "Schema for the YAML frontmatter block in every SKILL.md file",
+  "type": "object",
+  "required": ["name", "description"],
+  "additionalProperties": false,
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "Unique skill identifier, must match the directory name",
+      "pattern": "^[a-z][a-z0-9-]*$"
+    },
+    "description": {
+      "type": "string",
+      "description": "When and how to use this skill — used for auto-invocation matching",
+      "minLength": 20
+    },
+    "user-invocable": {
+      "type": "boolean",
+      "description": "Whether users can invoke directly with /skill-name. Omit for invocable skills; set false for background rules."
+    },
+    "disable-model-invocation": {
+      "type": "boolean",
+      "description": "Prevents Claude from auto-invoking this skill based on context matching. Set true for explicit /command skills."
+    },
+    "license": {
+      "type": "string",
+      "description": "SPDX license identifier, e.g. MIT"
+    },
+    "allowed-tools": {
+      "oneOf": [
+        { "type": "string" },
+        { "type": "array", "items": { "type": "string" } }
+      ],
+      "description": "Tools this skill is permitted to use"
+    }
+  }
+}

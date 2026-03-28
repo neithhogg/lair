@@ -16,7 +16,7 @@ npx skills add neithhogg/lair
 |---|---|
 | `/project-init` | Multi-phase conversation to bootstrap a new project — requirement discovery, scope lock, tech stack decision, file scaffold, skill installation |
 | `/project-sync` | Update PROJECT.md when scope changes, append a record to JOURNAL.md |
-| `/skill-writer` | Capture a repeated pattern as a new publishable skill |
+| `/skill-creator` | Build, test, and benchmark a new skill with evals and description optimisation |
 
 **Rules that silently govern AI behaviour**
 
@@ -49,8 +49,8 @@ npx skills add neithhogg/lair
 `project-sync` keeps `PROJECT.md` current and `JOURNAL.md` append-only —
 together they give any AI agent full project context across sessions.
 
-`skill-writer` turns patterns you notice during development into new skills,
-written directly into this repo and ready to publish.
+`skill-creator` builds new skills with full eval lifecycle — intent capture, test
+cases, benchmarking, grading, and description optimisation for accurate triggering.
 
 ## Iterating lair itself
 

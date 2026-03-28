@@ -45,11 +45,6 @@
       "source": "anthropics/skills",
       "sourceType": "github",
       "computedHash": "b122f4d1e91aa1d83027e050b5b37c3156203ee85458d7b1360bc48167c9e02a"
-    },
-    "skill-writer": {
-      "source": "neithhogg/lair",
-      "sourceType": "github",
-      "computedHash": "a4b883edd032aa703ae79dd37b1ab335cf823d10d5d2b76390f448b5fd818ca6"
     }
   }
 }

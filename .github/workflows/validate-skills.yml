@@ -1,0 +1,21 @@
+name: Validate skills
+
+on:
+  pull_request:
+    paths:
+      - '.agents/skills/**/SKILL.md'
+      - 'scripts/skill-schema.json'
+      - 'scripts/validate-skills.js'
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: '.nvmrc'
+
+      - name: Validate skill frontmatter
+        run: node scripts/validate-skills.js
