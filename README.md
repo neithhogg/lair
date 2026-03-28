@@ -61,6 +61,15 @@ into every AI tool you have installed (Claude Code, Cursor, Codex, Gemini CLI, e
 
 To add a recommended skill for the team, edit `scripts/skills.recommended.json` and open a PR.
 
+### Skill quality
+
+Before merging changes to a user-invocable skill (`project-init`, `project-sync`):
+
+1. Open Claude Code in this repo
+2. Run `/skill-creator` and point it at the skill
+3. Let it evaluate trigger accuracy and generate evals
+4. Check in the resulting `skills/{name}/evals/` files with your PR
+
 ## Iterating lair itself
 
 ```bash

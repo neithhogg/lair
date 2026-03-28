@@ -20,3 +20,13 @@ jobs:
 
       - name: Validate skill frontmatter
         run: npm run validate
+
+      - name: Check evals exist for user-invocable skills
+        run: |
+          for skill in project-init project-sync; do
+            if [ ! -d "skills/$skill/evals" ]; then
+              echo "FAIL: skills/$skill/evals/ missing — run /skill-creator before merging"
+              exit 1
+            fi
+          done
+          echo "OK: eval directories present"
