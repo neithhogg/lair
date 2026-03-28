@@ -1,0 +1,45 @@
+{
+  "skill_name": "project-init",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "I want to build a URL shortener service. It should let users paste long URLs and get a short one back, track click counts, and let them see a dashboard of their links. I'm a solo developer and want to ship this in about 6 weeks.",
+      "expected_output": "Claude runs all 4 phases: asks discovery questions across multiple turns, proposes a tech stack with rationale, generates PROJECT.md (with ≥3 out-of-scope items), JOURNAL.md, .gitignore, and tmp/README.md.",
+      "files": [],
+      "expectations": [
+        "PROJECT.md was created with a Purpose, Users, In Scope, Out of Scope, Tech Stack, and Last Updated section",
+        "Out of Scope section in PROJECT.md has at least 3 concrete items",
+        "JOURNAL.md was created with an initial dated entry",
+        "JOURNAL.md entry includes a 'Key decisions made today' section with tech stack rationale",
+        ".gitignore was created",
+        "tmp/README.md was created",
+        "Tech stack choices in PROJECT.md include a 'why' rationale tied to the 6-week constraint or solo developer context"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "I want to build a task management app for my team. It needs to have tasks, assignees, due dates, and status tracking.",
+      "expected_output": "Claude pushes back during Phase 1 Round 3 to get at least 3 explicit out-of-scope items before proceeding. It should not skip ahead to tech stack or file generation without establishing clear scope boundaries.",
+      "files": [],
+      "expectations": [
+        "Claude explicitly asks for out-of-scope items before proceeding to Phase 2",
+        "Claude does not proceed to Phase 2 without at least 3 out-of-scope items confirmed",
+        "PROJECT.md Out of Scope section has at least 3 items if files are eventually generated",
+        "Claude presents a Phase 1 summary and waits for explicit confirmation before moving to Phase 2"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "Let's initialize a new project. I want to build a CLI tool in Go that helps developers search and replace text across large codebases, with regex support and git-aware filtering.",
+      "expected_output": "Claude runs all 4 phases. In Phase 2, it recommends Go (not TypeScript/Python) because the user specified Go. In Phase 4, it runs actual npx skills find searches and does not hardcode or invent skill names or install counts.",
+      "files": [],
+      "expectations": [
+        "Tech stack in PROJECT.md uses Go as the primary language",
+        "Phase 4 runs npx skills find commands rather than presenting a hardcoded list",
+        "PROJECT.md was created with all required sections",
+        "JOURNAL.md was created",
+        ".gitignore includes Go-specific entries (bin/, *.exe, *.test)"
+      ]
+    }
+  ]
+}

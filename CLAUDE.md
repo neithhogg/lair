@@ -40,9 +40,11 @@ Frontmatter is validated against `scripts/skill-schema.json`. User-invocable ski
 3. File scaffold (generates PROJECT.md, JOURNAL.md, .gitignore, tmp/README.md)
 4. Skill discovery (searches skills.sh, user multi-selects to install)
 
-**`/project-sync`** — maintains living docs when scope changes:
-- Diffs and updates PROJECT.md
-- Appends dated entries to JOURNAL.md (append-only, never overwrites)
+**`/project-sync`** — keeps all project docs accurate and consistent:
+- Auto-reads git history and file changes to determine what shipped and what's planned
+- JOURNAL.md is a plain checklist: `- [x]` done, `- [ ]` planned (no verbose entries)
+- Performs a consistency pass across PROJECT.md, JOURNAL.md, CLAUDE.md — fixes stale content
+- Confirms proposed changes once before writing
 
 ### Living Documents Pattern
 

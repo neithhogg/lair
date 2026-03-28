@@ -1,10 +1,11 @@
 ---
 name: project-init
 description: >
-  Initializes a new AI-assisted project through a structured multi-phase
-  conversation. Use when starting a new project from scratch, or when no
-  PROJECT.md exists in the current directory. Generates PROJECT.md, JOURNAL.md,
-  .gitignore, and tmp/. Also finds and installs relevant skills from skills.sh.
+  Bootstraps a new AI-assisted project through a structured 4-phase conversation,
+  then generates PROJECT.md, JOURNAL.md, .gitignore, and tmp/README.md. Also searches
+  skills.sh and installs relevant skills for the approved tech stack. Use when starting
+  a new project from scratch or when no PROJECT.md exists in the current directory.
+  Do NOT trigger if PROJECT.md already exists — redirect to /project-sync instead.
   Invoke with /project-init — never auto-trigger.
 disable-model-invocation: true
 ---
@@ -45,6 +46,9 @@ Require at least 3 concrete out-of-scope items before proceeding.
 **Round 4 — Constraints**
 Ask: "Any hard constraints? Deadline, existing systems to integrate, target
 platforms, team size?"
+If they say "none" or "no constraints", probe gently: "What would make you
+abandon a tech choice mid-build? (e.g., too slow, too expensive, no iOS support)"
+This usually surfaces hidden constraints.
 
 **Round 5 — Success**
 Ask: "How do you know this worked? What does done look like in 3 months?"
@@ -105,8 +109,9 @@ Do NOT proceed to Phase 3 until they explicitly approve the stack.
 
 ## PHASE 3 — File Scaffold
 
-Show a preview of each file, then write only after they confirm.
-Ask once: "Ready to generate these files?" and wait for yes.
+Tell the user what files you're about to create (just the names and one-line
+purpose for each — don't show the full content yet), then ask once:
+"Ready to generate these files?" and wait for yes.
 
 ### PROJECT.md
 ```markdown
@@ -213,33 +218,28 @@ Tell the user:
 "Now let's find skills for this project. I'll search skills.sh based on your
 tech stack. You choose what to install — nothing happens without your confirmation."
 
-Run searches using npx skills find based on Phase 2 tech stack:
-- TypeScript → `npx skills find typescript`
-- React/Next.js → `npx skills find react`, `npx skills find nextjs`
-- Go → `npx skills find golang`
-- Rust → `npx skills find rust`
-- Any project → `npx skills find debugging`, `npx skills find git`
+Run searches using `npx skills find` based on the approved Phase 2 tech stack.
+Search for each major technology and also always search for general workflow skills:
 
-For each search, present results grouped by category:
-
-```
-Workflow (recommended for any project):
-[ ] obra/superpowers → systematic-debugging (38K installs)
-[ ] obra/superpowers → writing-plans (37K installs)
-[ ] github/awesome-copilot → git-commit (17K installs)
-
-Tech stack (based on your choices):
-[ ] [results from search]
-
-Quality:
-[ ] anthropics/skills → skill-creator (103K installs)
+```bash
+npx skills find [language]        # e.g., typescript, golang, rust, python
+npx skills find [framework]       # e.g., react, nextjs, django, fastapi
+npx skills find debugging
+npx skills find git
 ```
 
-Rules for recommendations:
-- Only suggest skills with 1K+ installs
-- Prefer verified sources: vercel-labs, anthropics, microsoft, supabase, expo
-- Be honest when no strong skill exists for a domain
-- Never recommend based on name alone — check install count
+For each search, collect the results. Then present a grouped list to the user.
+Only include skills with 1K+ installs. Be honest when a search returns nothing
+strong. Do not invent skill names or install counts — show what the tool actually returns.
+
+Example presentation format:
+```
+Workflow (useful for any project):
+[ ] owner/repo → skill-name (Xk installs)
+
+[Technology] skills:
+[ ] owner/repo → skill-name (Xk installs)
+```
 
 Ask: "Which would you like to install? You can select by number or category."
 

@@ -1,0 +1,51 @@
+{
+  "skill_name": "project-sync",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "We just shipped OAuth login and we're adding CSV export to scope. In the future we also want to add SSO.",
+      "expected_output": "Claude reads git history and JOURNAL.md, marks OAuth as [x], adds CSV export as [x] (just shipped), adds SSO as [ ], updates PROJECT.md In Scope with CSV export, confirms before writing.",
+      "files": [
+        "evals/fixtures/PROJECT.md",
+        "evals/fixtures/JOURNAL_with_future.md"
+      ],
+      "expectations": [
+        "JOURNAL.md contains '- [x]' entry for OAuth login",
+        "JOURNAL.md contains '- [x]' entry for CSV export",
+        "JOURNAL.md contains '- [ ]' entry for SSO",
+        "PROJECT.md In Scope section includes CSV export",
+        "JOURNAL.md has no verbose sections (no '### What changed', no dates, no prose)"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "We're switching from PostgreSQL to SQLite — single-user app, Postgres was overkill.",
+      "expected_output": "Claude updates PROJECT.md tech stack to SQLite, updates JOURNAL.md checklist to reflect the change, keeps format simple.",
+      "files": [
+        "evals/fixtures/PROJECT.md",
+        "evals/fixtures/JOURNAL_with_future.md"
+      ],
+      "expectations": [
+        "PROJECT.md Tech Stack section references SQLite instead of PostgreSQL",
+        "PROJECT.md Last Updated date was changed to today's date",
+        "JOURNAL.md remains a plain checklist with no verbose entries",
+        "JOURNAL.md contains a [x] item reflecting the SQLite migration or tech change"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "Do a consistency check — make sure all our docs are in sync.",
+      "expected_output": "Claude reads PROJECT.md, JOURNAL.md, and CLAUDE.md, identifies any stale or conflicting content across them, proposes fixes, and confirms before writing. If everything is consistent, says so and stops.",
+      "files": [
+        "evals/fixtures/PROJECT.md",
+        "evals/fixtures/JOURNAL_with_future.md"
+      ],
+      "expectations": [
+        "Claude reads all available docs before proposing changes",
+        "Claude identifies at least one consistency issue if any exist, or explicitly confirms docs are in sync",
+        "No file is modified without showing a proposed change and getting confirmation",
+        "JOURNAL.md format remains a plain checklist after any updates"
+      ]
+    }
+  ]
+}
