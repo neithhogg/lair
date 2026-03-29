@@ -3,21 +3,70 @@ name: project-init
 description: >
   Bootstraps a new AI-assisted project through a structured 4-phase conversation,
   then generates PROJECT.md, JOURNAL.md, .gitignore, and tmp/README.md. Also searches
-  skills.sh and installs relevant skills for the approved tech stack. Use when starting
-  a new project from scratch or when no PROJECT.md exists in the current directory.
-  Do NOT trigger if PROJECT.md already exists — redirect to /project-sync instead.
-  Invoke with /project-init — never auto-trigger.
+  skills.sh and installs relevant skills for the approved tech stack. Optionally
+  initializes OpenSpec for spec-driven development workflows. Use when starting a new
+  project or when the current directory has incomplete AI setup. Invoke with
+  /project-init — never auto-trigger.
 disable-model-invocation: true
 ---
 
 # project-init
 
 You are a structured project partner. Your job is to run through four phases
-in order. Never skip a phase. Never write files until Phase 3. Always wait for
-explicit approval before moving to the next phase.
+in order. Never write files until Phase 3. Always wait for explicit approval
+before moving to the next phase.
 
-If PROJECT.md already exists, stop and say:
-"This project already has a PROJECT.md. Use /project-sync to update it instead."
+---
+
+## PROJECT.md Triage
+
+Before anything else, check whether this project is already initialized.
+
+**Step 1 — Read the directory state silently.**
+Check for:
+- `PROJECT.md` (read its content)
+- `JOURNAL.md` (exists or not)
+- `.gitignore` (exists or not)
+- `CLAUDE.md`, `AGENT.md`, or `AGENTS.md` (any AI context file)
+
+**Step 2 — Classify and act.**
+
+**Case A — No PROJECT.md (or empty / stub < 100 chars / ≤ 1 meaningful section):**
+Treat as a fresh project. Run all four phases normally.
+
+**Case B — Fully initialized:**
+PROJECT.md has ≥ 4 of these sections (Purpose, Users, In Scope, Out of Scope,
+Tech Stack, Constraints, Success Criteria) AND JOURNAL.md exists AND at least
+one AI context file exists.
+
+Stop and say:
+"This project looks fully initialized. Use /project-sync to update it instead."
+
+**Case C — Partially initialized:**
+PROJECT.md exists with real content, but some pieces are missing. Infer which
+phases are done using these rules:
+- Phase 1 done → PROJECT.md contains Purpose, Users, In Scope, Out of Scope, and Constraints
+- Phase 2 done → PROJECT.md also contains a Tech Stack section
+- Phase 3 done → JOURNAL.md and .gitignore both exist
+- Phase 4 always offered (skill installs can't be reliably detected)
+
+Show the user what exists and what's missing:
+
+```
+I found a PROJECT.md with some content, but your setup looks incomplete.
+
+[x] PROJECT.md — [N] sections found
+[x/·] JOURNAL.md — [found / missing]
+[x/·] .gitignore — [found / missing]
+[x/·] AI context file (CLAUDE.md / AGENT.md) — [found / missing]
+
+Picking up from Phase [X]. I'll use what's already in PROJECT.md —
+correct anything that's wrong as we go.
+```
+
+Then skip completed phases and run from the first incomplete phase forward.
+Use content already in PROJECT.md as the approved baseline for skipped phases —
+don't re-ask questions whose answers are already documented.
 
 ---
 
@@ -248,6 +297,24 @@ For each confirmed selection, run:
 npx skills add [owner/repo] --skill [skill-name] -y
 ```
 
-After all done, say:
+After all installs are confirmed, offer OpenSpec:
+
+"One more optional setup: **OpenSpec** adds spec-driven workflows to your project.
+Before you start a feature, `/opsx:propose` creates a structured proposal with
+rationale, requirements, and a task checklist. `/opsx:apply` implements it.
+`/opsx:archive` stores it when done. Lightweight, AI-agnostic, and version-controlled.
+
+Want to initialize it? (yes / skip)"
+
+If yes:
+```bash
+npx openspec init
+```
+Then say: "OpenSpec initialized. Use `/opsx:propose` when you're ready to plan your first feature."
+
+If skip: continue to the completion message.
+
+---
+
 "Setup complete. Your project is ready.
 Run /project-sync any time your scope or direction changes."
