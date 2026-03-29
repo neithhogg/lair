@@ -1,0 +1,35 @@
+{
+  "version": 1,
+  "skills": {
+    "gh-cli": {
+      "source": "github/awesome-copilot",
+      "sourceType": "github",
+      "computedHash": "cbe644b0c6760ae2a1eaafa39133920d889331327065d92a131675a665273e56"
+    },
+    "git-commit": {
+      "source": "github/awesome-copilot",
+      "sourceType": "github",
+      "computedHash": "2607fc60629b82b257136dd2a7a373f0a4466c0b49df7746d845d59313c99b21"
+    },
+    "project-config": {
+      "source": "neithhogg/lair",
+      "sourceType": "github",
+      "computedHash": "7b0bc6e3b7dc6b617b51751e2cbe726d5ef86e15cb3772d2856eb5b7b6faf4ff"
+    },
+    "project-init": {
+      "source": "neithhogg/lair",
+      "sourceType": "github",
+      "computedHash": "8bafb66ac6705ae20fb5bd891568a81d7113f17e4d963b6179031a85daf77305"
+    },
+    "project-sync": {
+      "source": "neithhogg/lair",
+      "sourceType": "github",
+      "computedHash": "22c6910f60ffe690c1fd1e03c50e05e33d46786e08adae6b3cf68112f4a042f3"
+    },
+    "skill-creator": {
+      "source": "anthropics/skills",
+      "sourceType": "github",
+      "computedHash": "b122f4d1e91aa1d83027e050b5b37c3156203ee85458d7b1360bc48167c9e02a"
+    }
+  }
+}
