@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## What This Repo Is
 
-**lair** is a reusable skill set for the [skills.sh](https://skills.sh) platform. It provides two user-invocable skills (`/project-init`, `/project-sync`) that bootstrap new AI-assisted projects with scope discipline and living documentation. Distributed via `npx skills add neithhogg/lair`.
+**lair** is a reusable skill set for the [skills.sh](https://skills.sh) platform. It provides three user-invocable skills (`/project-init`, `/project-sync`, `/project-config`) that bootstrap new AI-assisted projects with scope discipline and living documentation. Distributed via `npx skills add neithhogg/lair`.
 
 ## Commands
 
@@ -32,7 +32,7 @@ disable-model-invocation: true  # Explicit /command only (no auto-trigger)
 
 Frontmatter is validated against `scripts/skill-schema.json`. User-invocable skills must also have an `evals/` subdirectory (CI enforces this).
 
-### The Two Skills
+### The Three Skills
 
 **`/project-init`** — 4-phase project bootstrap:
 1. Discovery (5 rounds: idea, users, scope boundaries, constraints, success metrics)
@@ -46,9 +46,14 @@ Frontmatter is validated against `scripts/skill-schema.json`. User-invocable ski
 - Performs a consistency pass across PROJECT.md, JOURNAL.md, CLAUDE.md — fixes stale content
 - Confirms proposed changes once before writing
 
+**`/project-config`** — generates the right AI agent context file for any codebase:
+- Detects the running agent (Claude Code, Codex, Gemini CLI, Cursor, Windsurf, etc.)
+- Scans the codebase for commands, architecture, and style config
+- Writes CLAUDE.md, AGENTS.md, GEMINI.md, or .cursorrules as appropriate
+
 ### Living Documents Pattern
 
-PROJECT.md (scope/stack reference) + JOURNAL.md (append-only decision log) travel together in every project bootstrapped by lair, giving any AI agent full session context.
+PROJECT.md (scope/stack reference) + JOURNAL.md (living checklist) travel together in every project bootstrapped by lair, giving any AI agent full session context.
 
 ### Supporting Scripts
 

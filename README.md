@@ -15,7 +15,8 @@ npx skills add neithhogg/lair
 | Command | What it does |
 |---|---|
 | `/project-init` | Multi-phase conversation to bootstrap a new project — requirement discovery, scope lock, tech stack decision, file scaffold, skill installation |
-| `/project-sync` | Keep all project docs accurate and consistent; JOURNAL.md is a checklist |
+| `/project-sync` | Keep all project docs accurate and consistent; JOURNAL.md is a living checklist |
+| `/project-config` | Detect your AI agent environment and generate the right context file (CLAUDE.md, AGENTS.md, GEMINI.md, or .cursorrules) |
 
 ## Quick start
 
@@ -36,7 +37,7 @@ npx skills add neithhogg/lair
 3. **Scaffold** — generate `PROJECT.md`, `JOURNAL.md`, `.gitignore`, `tmp/`
 4. **Skills** — search skills.sh for your stack, multi-select install
 
-`project-sync` keeps `PROJECT.md` current and `JOURNAL.md` append-only —
+`project-sync` keeps `PROJECT.md` current and `JOURNAL.md` as a living checklist —
 together they give any AI agent full project context across sessions.
 
 ## Contributing / Setup
