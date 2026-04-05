@@ -1,0 +1,51 @@
+{
+  "skill_name": "tdd",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "I want to implement a function called `slugify` that takes a string and returns a URL-safe slug (lowercase, hyphens for spaces, no special chars).",
+      "expected_output": "Claude scans package.json to detect the test runner, confirms the test command and file convention with the user, proposes a failing test for slugify before writing any implementation, writes only the test file, runs the test command and confirms it fails because slugify does not exist yet, then moves to the implementation phase.",
+      "files": [
+        "evals/fixtures/node-project/package.json"
+      ],
+      "expectations": [
+        "Claude detects the test command from package.json before asking anything",
+        "Claude proposes the test code and waits for user confirmation before writing any file",
+        "Claude writes the test file before writing any implementation file",
+        "Claude runs the test command after writing the test and reports the result",
+        "Claude does not write implementation code until the test is confirmed failing",
+        "Claude confirms the test fails because slugify does not exist (not due to a syntax error)"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "Skip the test — I already know what I need to build. Just write the implementation for a `parseDate` function that parses ISO 8601 strings.",
+      "expected_output": "Claude refuses to skip the red phase and explains that writing implementation before a failing test violates TDD. Claude instead offers to write the failing test first, then the implementation.",
+      "files": [
+        "evals/fixtures/node-project/package.json"
+      ],
+      "expectations": [
+        "Claude does not write any implementation code in response to this prompt",
+        "Claude explicitly states that implementation cannot be written before a failing test exists",
+        "Claude offers to write the failing test first",
+        "Claude does not proceed to Phase 3 without completing Phase 2"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "I want to implement a `WordCount(text string) map[string]int` function that counts word frequencies in a string.",
+      "expected_output": "Claude detects Go from go.mod, confirms `go test ./...` as the test command, proposes a failing test using Go testing conventions (*_test.go file in the same package), writes only the test, runs it and confirms red, then proposes a minimal implementation, runs tests again and confirms green, then offers a refactor pass.",
+      "files": [
+        "evals/fixtures/go-project/go.mod"
+      ],
+      "expectations": [
+        "Claude detects Go from go.mod and uses `go test ./...` as the test command",
+        "Test file follows Go conventions — named *_test.go and uses the testing package",
+        "Claude runs the test after writing it and confirms it fails before writing implementation",
+        "Implementation is written only after red is confirmed",
+        "Claude runs the test suite again after writing implementation to confirm green",
+        "Claude offers a refactor pass only after all tests pass"
+      ]
+    }
+  ]
+}

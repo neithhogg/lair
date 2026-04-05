@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## What This Repo Is
 
-**lair** is a reusable skill set for the [skills.sh](https://skills.sh) platform. It provides three user-invocable skills (`/project-init`, `/project-sync`, `/project-config`) that bootstrap new AI-assisted projects with scope discipline and living documentation. Distributed via `npx skills add neithhogg/lair`.
+**lair** is a reusable skill set for the [skills.sh](https://skills.sh) platform. It provides five user-invocable skills (`/project-init`, `/project-sync`, `/project-config`, `/tdd`, `/pre-push`) that bootstrap new AI-assisted projects with scope discipline, living documentation, and code quality guardrails. Distributed via `npx skills add neithhogg/lair`.
 
 ## Commands
 
@@ -32,7 +32,7 @@ disable-model-invocation: true  # Explicit /command only (no auto-trigger)
 
 Frontmatter is validated against `scripts/skill-schema.json`. User-invocable skills must also have an `evals/` subdirectory (CI enforces this).
 
-### The Three Skills
+### The Five Skills
 
 **`/project-init`** — 4-phase project bootstrap:
 1. Discovery (5 rounds: idea, users, scope boundaries, constraints, success metrics)
@@ -50,6 +50,16 @@ Frontmatter is validated against `scripts/skill-schema.json`. User-invocable ski
 - Detects the running agent (Claude Code, Codex, Gemini CLI, Cursor, Windsurf, etc.)
 - Scans the codebase for commands, architecture, and style config
 - Writes CLAUDE.md, AGENTS.md, GEMINI.md, or .cursorrules as appropriate
+
+**`/tdd`** — strict red-green-refactor TDD cycle:
+1. Detect test runner and file conventions from project files
+2. Write failing test only (confirm before any write, verify it fails for the right reason)
+3. Write minimal implementation (green), then offer a refactor pass
+
+**`/pre-push`** — local CI runner before git push:
+1. Detect test/lint/build/type-check commands from package.json, Makefile, go.mod, CI workflows
+2. Present a numbered menu, confirm selection before running anything
+3. Execute in sequence, stop on first failure, report a pass/fail summary
 
 ### Living Documents Pattern
 

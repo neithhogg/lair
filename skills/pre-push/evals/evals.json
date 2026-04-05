@@ -1,0 +1,53 @@
+{
+  "skill_name": "pre-push",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Run my pre-push checks.",
+      "expected_output": "Claude scans package.json silently, detects test/lint/build commands, presents a numbered menu with exact commands and source files, waits for user selection, confirms the plan once before running anything, then executes the commands in sequence and reports a summary.",
+      "files": [
+        "evals/fixtures/node-project/package.json"
+      ],
+      "expectations": [
+        "Claude detects at least test and lint commands from package.json before presenting anything",
+        "Claude presents a numbered menu showing exact commands and their source file",
+        "Claude does not run any command before the user selects and confirms",
+        "Claude shows a single confirmation of the selected commands before executing",
+        "Claude reports each command as PASS or FAIL after running",
+        "Claude shows a final summary listing all commands with their pass/fail status"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "Just run the tests and lint. Stop if anything fails.",
+      "expected_output": "Claude detects available commands, presents the menu, then after user selects test and lint runs only those two in order, stops after the first failure, shows the last portion of failure output, and does not run subsequent commands without explicit user instruction.",
+      "files": [
+        "evals/fixtures/node-project/package.json",
+        "evals/fixtures/failing-test-output.txt"
+      ],
+      "expectations": [
+        "Claude runs only the test and lint commands, not build or type-check",
+        "Claude stops at the first failing command and does not continue",
+        "Claude shows a meaningful portion of the failure output (not just 'failed')",
+        "Claude does not run subsequent commands after the failure",
+        "Summary shows FAIL status with output excerpt for the failing command"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "Check everything before I push this Go change.",
+      "expected_output": "Claude scans go.mod and Makefile, detects `go test ./...`, `golangci-lint run ./...`, and `go build ./...`, presents the detection menu, runs all confirmed commands in the recommended order, and reports the final summary.",
+      "files": [
+        "evals/fixtures/go-project/go.mod",
+        "evals/fixtures/go-project/Makefile"
+      ],
+      "expectations": [
+        "Claude detects Go commands from go.mod and Makefile, not npm commands",
+        "Claude presents the correct Go commands in the menu",
+        "Claude runs commands in the recommended order (lint before test before build if available)",
+        "Final summary accurately reflects which commands passed or failed",
+        "Claude does not fabricate commands not found in the fixture files"
+      ]
+    }
+  ]
+}

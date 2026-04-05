@@ -1,0 +1,15 @@
+ FAIL  src/utils/slugify.test.ts > slugify > converts spaces to hyphens
+
+AssertionError: expected 'Hello World' to equal 'hello-world'
+ - Expected  - 1
+ + Received  + 1
+
+   - hello-world
+   + Hello World
+
+ ❯ src/utils/slugify.test.ts:8:28
+
+Test Files  1 failed (1)
+Tests       1 failed (1)
+Start at    12:04:31
+Duration    312ms

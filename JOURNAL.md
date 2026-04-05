@@ -15,3 +15,5 @@ _Last updated: 2026-03-30_
 - [ ] Starter pack install command
 - [ ] Community contributions via PR
 - [ ] Changelog-driven release process
+- [ ] Add /tdd skill for red-green-refactor cycle enforcement
+- [ ] Add /pre-push skill for local CI command runner
