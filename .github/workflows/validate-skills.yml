@@ -23,7 +23,7 @@ jobs:
 
       - name: Check evals exist for user-invocable skills
         run: |
-          for skill in project-init project-sync; do
+          for skill in project-init project-sync project-config tdd pre-push; do
             if [ ! -d "skills/$skill/evals" ]; then
               echo "FAIL: skills/$skill/evals/ missing — run /skill-creator before merging"
               exit 1
